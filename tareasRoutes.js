@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
-const repo = require('./tareasRepo'); 
+const repo = require('./tareasRepo'); // Asegúrate que tareasRepo.js está en la misma carpeta
 
+// GET /tareas - Obtener todas las tareas
 router.get('/', (req, res) => {
   const tareas = repo.obtenerTodas();
   res.json(tareas);
 });
 
+// GET /tareas/:id - Obtener tarea por id
 router.get('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const tarea = repo.consultarPorId(id);
@@ -17,6 +19,7 @@ router.get('/:id', (req, res) => {
   res.json(tarea);
 });
 
+// POST /tareas - Crear nueva tarea
 router.post('/', (req, res) => {
   const { nombre, descripcion, estacompleta, fecha } = req.body;
 
@@ -34,6 +37,7 @@ router.post('/', (req, res) => {
   res.status(201).json(repo.obtenerTodas());
 });
 
+// PUT /tareas/:id - Actualizar una tarea
 router.put('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   const { nombre, descripcion, estacompleta, fecha } = req.body;
@@ -53,6 +57,7 @@ router.put('/:id', (req, res) => {
   res.json(tareaActualizada);
 });
 
+// DELETE /tareas/:id - Eliminar una tarea
 router.delete('/:id', (req, res) => {
   const id = parseInt(req.params.id);
 
@@ -65,3 +70,4 @@ router.delete('/:id', (req, res) => {
 });
 
 module.exports = router;
+
